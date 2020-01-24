@@ -168,6 +168,8 @@ int getVirtualHubs(libusb_context *context, libusb_device *hub, std::vector<libu
     if (rc != LIBUSB_SUCCESS) {
         // At least attempt to recycle one hub (parent).
         virtualHubs.push_back(hub);
+
+        libusb_free_device_list(deviceList, 1);
         return rc;
     }
 
@@ -209,6 +211,8 @@ int getVirtualHubs(libusb_context *context, libusb_device *hub, std::vector<libu
             LOGD("Failed to query device descriptor on hub device");
         }
     }
+
+    libusb_free_device_list(deviceList, 1);
     return 0;
 }
 
@@ -312,6 +316,8 @@ void reset() {
             // LOGD("Skipping non-RealSense device %04x:%04x", desc.idVendor, desc.idProduct);
         }
     }
+
+    libusb_free_device_list(deviceList, 1);
     libusb_exit(context);
 }
 
