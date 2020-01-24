@@ -31,8 +31,8 @@ set(LIBUSB1_ROOT_DIR
         "Root directory to search for libusb-1")
 
 if(WIN32)
-    include(ProgramFilesGlob)
-    program_files_fallback_glob(_dirs "LibUSB-Win32")
+    set(_dirs "c:/Program Files/libusb-1.0.22.7")
+	message(status "Looking for libusb in ${_dirs}")
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
         if(MSVC)
             set(_lib_suffixes lib/msvc_x64 MS64/static)
@@ -84,6 +84,8 @@ find_package_handle_standard_args(Libusb1
         DEFAULT_MSG
         LIBUSB1_LIBRARY
         LIBUSB1_INCLUDE_DIR)
+
+message(STATUS "Include dir: ${LIBUSB1_INCLUDE_DIR}")
 
 if(LIBUSB1_FOUND)
     set(LIBUSB1_LIBRARIES "${LIBUSB1_LIBRARY}")
